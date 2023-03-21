@@ -53,5 +53,14 @@
       "endOfLine" : "lf",
       "indentSize" : 2
     }
+  }, {
+    "module" : "cypress",
+    "date" : "2023-03-21T01:16:55.449389Z",
+    "properties" : {
+      "projectName" : "JHipster Sample Application",
+      "baseName" : "jhipsterSampleApplication",
+      "endOfLine" : "lf",
+      "indentSize" : 2
+    }
   } ]
 }
