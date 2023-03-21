@@ -44,5 +44,14 @@
       "endOfLine" : "lf",
       "indentSize" : 2
     }
+  }, {
+    "module" : "react-core",
+    "date" : "2023-03-21T01:16:55.366624Z",
+    "properties" : {
+      "projectName" : "JHipster Sample Application",
+      "baseName" : "jhipsterSampleApplication",
+      "endOfLine" : "lf",
+      "indentSize" : 2
+    }
   } ]
 }
