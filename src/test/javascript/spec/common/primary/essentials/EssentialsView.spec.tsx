@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import EssentialsView from '@/common/primary/essentials/index';
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { mockEssentials } from '../../domain/essentials/EssentialsMock.fixture';
 
 const mockedEssentials = mockEssentials();
@@ -29,5 +29,44 @@ describe('EssentialsView', () => {
     await waitFor(() => essentialsView.getByTestId('essentials-list'));
     const essentialPaperTowels = essentialsView.getByTestId('essential-paper-towels');
     expect(essentialPaperTowels.textContent).toBe('Paper Towels');
+  });
+
+  it('should not add an empty essential', async () => {
+    const essentialsView = render(<EssentialsView />);
+    await waitFor(() => essentialsView.getByTestId('essentials-list'));
+    const addEssential = essentialsView.getByTestId('add-essential') as HTMLInputElement;
+    const addEssentialButton = essentialsView.getByTestId('add-essential-button') as HTMLButtonElement;
+
+    fireEvent.change(addEssential, { target: { value: '' } });
+
+    await waitFor(() => addEssentialButton.click());
+    expect(mockedEssentials.add).not.toHaveBeenCalled();
+  });
+
+  it('should not add an already existing essential', async () => {
+    const essentialsView = render(<EssentialsView />);
+    await waitFor(() => essentialsView.getByTestId('essentials-list'));
+    const addEssential = essentialsView.getByTestId('add-essential') as HTMLInputElement;
+    const addEssentialButton = essentialsView.getByTestId('add-essential-button') as HTMLButtonElement;
+
+    fireEvent.change(addEssential, { target: { value: 'Paper Towels' } });
+
+    await waitFor(() => addEssentialButton.click());
+    expect(mockedEssentials.add).not.toHaveBeenCalled();
+  });
+
+  it('should add an essential', async () => {
+    const essentialsView = render(<EssentialsView />);
+    await waitFor(() => essentialsView.getByTestId('essentials-list'));
+    const addEssential = essentialsView.getByTestId('add-essential') as HTMLInputElement;
+    const addEssentialButton = essentialsView.getByTestId('add-essential-button') as HTMLButtonElement;
+
+    fireEvent.change(addEssential, { target: { value: 'Hand Soap' } });
+    expect(addEssential.value).toBe('Hand Soap');
+
+    await waitFor(() => addEssentialButton.click());
+    expect(mockedEssentials.add).toHaveBeenCalledWith({ code: 'hand-soap', type: 'Hand Soap' });
+    const essentialHandSoap = essentialsView.getByTestId('essential-hand-soap');
+    expect(essentialHandSoap.textContent).toBe('Hand Soap');
   });
 });
