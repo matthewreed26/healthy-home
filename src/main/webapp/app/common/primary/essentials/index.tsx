@@ -6,7 +6,7 @@ import { Essential } from '@/common/domain/essential/Essential';
 const EssentialsView = () => {
   const { essentials } = useContext(AppContext);
   const [essentialsList, setEssentialsList] = useState<Essential[]>([]);
-  const [addEssential, setAddEssential] = useState<Essential>();
+  const [addEssential, setAddEssential] = useState<Essential>({ code: '', type: '' });
 
   useEffect(() => {
     (async () => {
@@ -15,10 +15,11 @@ const EssentialsView = () => {
   }, []);
 
   const clickedAddEssentialButton = async () => {
-    if (addEssential && !essentialsList.find(e => e.code === addEssential.code)) {
+    if (addEssential.code && !essentialsList.find(e => e.code === addEssential.code)) {
       try {
         await (essentials as () => Essentials)().add(addEssential);
         setEssentialsList([...essentialsList, addEssential]);
+        setAddEssential({ code: '', type: '' });
       } catch (error) {
         console.error(error);
       }
@@ -40,6 +41,7 @@ const EssentialsView = () => {
         id="essential-add"
         type="text"
         onChange={e => setAddEssential({ type: e.target.value, code: e.target.value.replace(/\s+/g, '-').toLowerCase() })}
+        value={addEssential.type}
         data-testid="add-essential"
       ></input>
       <button onClick={clickedAddEssentialButton} data-testid="add-essential-button">
