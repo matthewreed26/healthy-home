@@ -1,6 +1,6 @@
 import { ProductStatus } from '@/common/domain/product/ProductStatus';
 import { Currency } from '@/common/domain/purchase/Currency';
-import { Purchase } from '@/common/domain/purchase/purchase';
+import { Purchase } from '@/common/domain/purchase/Purchase';
 import { PurchasesInMemory } from '@/common/secondary/purchases/PurchasesInMemory';
 import { describe, it, expect } from 'vitest';
 

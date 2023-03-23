@@ -21,6 +21,8 @@
     "test": "vitest run --coverage",
     "test:component": "cypress open --config-file src/test/javascript/integration/cypress-config.ts",
     "test:component:headless": "cypress run --headless --config-file src/test/javascript/integration/cypress-config.ts",
+    "test:tsc": "tsc --noEmit",
+    "test:tsc:watch": "tsc --watch --noEmit",
     "test:watch": "vitest --",
     "test:watch:all": "jest --watchAll"
   },
