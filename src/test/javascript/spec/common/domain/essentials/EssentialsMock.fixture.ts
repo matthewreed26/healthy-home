@@ -1,4 +1,4 @@
-import { Mock, vi } from 'vitest';
+import { Mock } from 'vitest';
 
 import { Essentials } from '@/common/domain/essential/Essentials';
 
